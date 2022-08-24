@@ -1,0 +1,10 @@
+{
+    "urls": {
+        "login": "https://bsignin.104.com.tw/login",
+        "checkin":"https://pro.104.com.tw/psc2"
+    },
+    "user": {
+        "username":"username@example.com",
+        "password":"password"
+    }
+}
