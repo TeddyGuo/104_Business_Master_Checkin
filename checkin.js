@@ -28,6 +28,9 @@ const config = require('./config/default.json');
     await page.click('.Product__product');
     // Goes to the page of private secretary
     await page.goto(config.urls.checkin);
+    // Closes the additional window if the open browser is not supported
+    //await page.waitForSelector('i.fa.fa-times');
+    //await page.click('i.fa.fa-times');
     // Clocks in or out
     await page.waitForSelector('span[class="btn btn-white btn-lg btn-block"]')
     await page.click('span[class="btn btn-white btn-lg btn-block"]')
