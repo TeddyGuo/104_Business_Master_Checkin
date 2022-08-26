@@ -48,5 +48,6 @@ With that, we can see the status how the program works.
 ## WSL2 Appendix
 
 In the Windows 10 WSL2 environment, we need the X Server to execute the program.
+
 The following is a note, which is helpful for us to set up that.
 - https://hackmd.io/@JYU/B1zmv1MCU#%E6%8E%A1%E9%9B%B7%E7%AD%86%E8%A8%98
