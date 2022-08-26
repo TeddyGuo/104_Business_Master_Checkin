@@ -1,5 +1,7 @@
 const puppeteer = require('puppeteer');
-const config = require('./config/default.json');
+const username = 'username';
+const root_path = '/home/' + username + '/104-Business-Master-Checkin/';
+const config = require(root_path + 'config/default.json');
 
 (async () => {
     const browser = await puppeteer.launch({
@@ -7,7 +9,11 @@ const config = require('./config/default.json');
         headless: false,
         product: 'chrome',
         ignoreHTTPSErrors: true,
-        defaultViewport: null
+        defaultViewport: null,
+        args: [
+                '--no-sandbox',
+                '--disable-gpu',
+        ]
     })
 
     const page = await browser.newPage();
@@ -31,19 +37,21 @@ const config = require('./config/default.json');
     // Closes the additional window if the open browser is not supported
     //await page.waitForSelector('i.fa.fa-times');
     //await page.click('i.fa.fa-times');
+    // Waits the timeout in random
+    await page.waitForTimeout((Math.random() * (5 * 60 * 1000 - 60 * 1000)) - (60 * 1000));
     // Clocks in or out
     await page.waitForSelector('span[class="btn btn-white btn-lg btn-block"]')
     await page.click('span[class="btn btn-white btn-lg btn-block"]')
     // Puts the screenshot to the records directory with the time to denote
-    // Wait for 60 seconds
-    await page.waitForTimeout(60000)
+    // Wait for 3 seconds
+    await page.waitForTimeout(3000)
     var date = new Date();
     const formatDate = (curr_date) => {
         let fmt_date = curr_date.getFullYear() + "-" + (curr_date.getMonth() + 1) + "-" + curr_date.getDate() + "_" +
                                 curr_date.getHours() + ":" + curr_date.getMinutes() + ":" + curr_date.getSeconds();
         return fmt_date;
     }
-    await page.screenshot({path: './records/' + formatDate(date) + '.png'});
+    await page.screenshot({path: root_path + 'records/' + formatDate(date) + '.png'});
     // Closes the browser
     await browser.close();
 })();
