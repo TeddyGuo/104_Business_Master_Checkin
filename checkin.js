@@ -40,9 +40,14 @@ try {
         await page.click('i.fa.fa-times');
         // Waits the timeout in random
         await page.waitForTimeout((Math.random() * (5 * 60 * 1000 - 60 * 1000)) - (60 * 1000));
-        // Clocks in or out
-        await page.waitForSelector('span[class="btn btn-white btn-lg btn-block"]')
-        await page.click('span[class="btn btn-white btn-lg btn-block"]')
+        // Check whether the day is workday.
+        const holiday = await page.$('span[class="ico ico-s ico-none undefined"]');
+        const holiday_txt = await (await holiday.getProperty('textContent')).jsonValue();
+        if (holiday_txt !== '國定假日' || holiday_txt !== '休息日' || holiday_tx !== '例假日') {
+            // Clocks in or out
+            await page.waitForSelector('span[class="btn btn-white btn-lg btn-block"]');
+            await page.click('span[class="btn btn-white btn-lg btn-block"]');
+        }
         // Puts the screenshot to the records directory with the time to denote
         // Wait for 3 seconds
         await page.waitForTimeout(3000)
